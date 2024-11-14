@@ -1,5 +1,4 @@
 import 'package:domain/domain.dart';
-import 'package:domain/src/shared/exception/business_exception.dart';
 
 class TicketEntry {
   TicketEntry(this._vehicle, this._entryTime) {
