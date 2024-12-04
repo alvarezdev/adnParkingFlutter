@@ -1,5 +1,4 @@
 import 'package:domain/domain.dart';
-import 'package:domain/src/shared/exception/business_exception.dart';
 import 'package:test/test.dart';
 
 void main() {

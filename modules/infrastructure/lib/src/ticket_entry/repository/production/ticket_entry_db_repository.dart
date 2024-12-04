@@ -17,11 +17,12 @@ class TicketEntryDbRepository extends TicketEntryRepositoryDatabase {
 
   @override
   Future<void> add(TicketEntry ticket) async {
-    try {
-      ticket.vehicle as Car;
+    final ticketEntry = ticket.vehicle;
+
+    if (ticketEntry is Car) {
       _ticketEntryCarDao.insertTicketEntry(
           TicketEntryTranslator.fromCarDomainToDatabase(ticket));
-    } catch (e) {
+    } else {
       _ticketEntryMotorcycleDao.insertTicketEntry(
           TicketEntryTranslator.fromMotorcyleDomainToDatabase(ticket));
     }
@@ -30,22 +31,26 @@ class TicketEntryDbRepository extends TicketEntryRepositoryDatabase {
   @override
   Future<List<TicketEntry>> getList() async {
     final cars = await _ticketEntryCarDao.getAllTickets();
-    var listCar =  cars.map(TicketEntryTranslator.fromCarDatabaseToDomain).toList();
+    var listCar =
+        cars.map(TicketEntryTranslator.fromCarDatabaseToDomain).toList();
     final motorcycles = await _ticketEntryMotorcycleDao.getAllTickets();
-    var listMotorcycles = motorcycles.map(TicketEntryTranslator.fromMotorcycleDatabaseToDomain).toList();
+    var listMotorcycles = motorcycles
+        .map(TicketEntryTranslator.fromMotorcycleDatabaseToDomain)
+        .toList();
     listCar.addAll(listMotorcycles);
     return listCar;
   }
 
   @override
-  Future<void> delete (String id) async {
+  Future<void> delete(String id) async {
     var ticketCar = await _ticketEntryCarDao.getTicketEntryById(id);
-    var ticketMotorcycle = await _ticketEntryMotorcycleDao.getTicketEntryById(id);
+    var ticketMotorcycle =
+        await _ticketEntryMotorcycleDao.getTicketEntryById(id);
 
-    if (ticketCar != null){
+    if (ticketCar != null) {
       _ticketEntryCarDao.deleteTicketEntry(ticketCar.id);
     }
-    if (ticketMotorcycle != null){
+    if (ticketMotorcycle != null) {
       _ticketEntryMotorcycleDao.deleteTicketEntry(ticketMotorcycle.id);
     }
   }
@@ -53,12 +58,14 @@ class TicketEntryDbRepository extends TicketEntryRepositoryDatabase {
   @override
   Future<TicketEntry?> getById(String id) async {
     var ticketCar = await _ticketEntryCarDao.getTicketEntryById(id);
-    var ticketMotorcycle = await _ticketEntryMotorcycleDao.getTicketEntryById(id);
-    if (ticketCar != null){
+    var ticketMotorcycle =
+        await _ticketEntryMotorcycleDao.getTicketEntryById(id);
+    if (ticketCar != null) {
       return TicketEntryTranslator.fromCarDatabaseToDomain(ticketCar);
     }
     if (ticketMotorcycle != null) {
-      return TicketEntryTranslator.fromMotorcycleDatabaseToDomain(ticketMotorcycle);
+      return TicketEntryTranslator.fromMotorcycleDatabaseToDomain(
+          ticketMotorcycle);
     }
     return null;
   }
