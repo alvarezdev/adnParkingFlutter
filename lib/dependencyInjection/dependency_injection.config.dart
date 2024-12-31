@@ -8,8 +8,10 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:adn_parking_flutter/screen/register_vehicle/bloc/register_vehicle_bloc.dart'
-    as _i341;
+import 'package:adn_parking_flutter/screen/register_vehicle/bloc/register_car/register_car_bloc.dart'
+    as _i956;
+import 'package:adn_parking_flutter/screen/register_vehicle/bloc/register_motorcycle/register_motorcycle_bloc.dart'
+    as _i336;
 import 'package:domain/domain.dart' as _i494;
 import 'package:domain/domain.module.dart' as _i941;
 import 'package:get_it/get_it.dart' as _i174;
@@ -27,7 +29,9 @@ extension GetItInjectableX on _i174.GetIt {
       environment,
       environmentFilter,
     );
-    gh.factory<_i341.RegisterVehicleBloc>(() => _i341.RegisterVehicleBloc(
+    gh.factory<_i336.RegisterMotorcycleBloc>(() => _i336.RegisterMotorcycleBloc(
+        ticketEntryCarService: gh<_i494.TicketEntryMotorcycleService>()));
+    gh.factory<_i956.RegisterCarBloc>(() => _i956.RegisterCarBloc(
         ticketEntryCarService: gh<_i494.TicketEntryCarService>()));
     await _i460.InfrastructurePackageModule().init(gh);
     await _i941.DomainPackageModule().init(gh);

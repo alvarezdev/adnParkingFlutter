@@ -1,6 +1,9 @@
-import 'package:adn_parking_flutter/screen/register_vehicle/bloc/register_vehicle_bloc.dart';
-import 'package:domain/domain.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:adn_parking_flutter/screen/register_vehicle/bloc/register_car/register_car_bloc.dart';
+import 'package:adn_parking_flutter/screen/register_vehicle/bloc/register_motorcycle/register_motorcycle_bloc.dart';
+import 'package:adn_parking_flutter/screen/register_vehicle/register_car_form.dart';
+import 'package:adn_parking_flutter/screen/register_vehicle/register_motorcycle_form.dart';
+import 'package:adn_parking_flutter/shared/toast_widget.dart';
+import 'package:adn_parking_flutter/shared/vehicle_type.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -10,75 +13,88 @@ class RegisterVehicleScreen extends StatefulWidget {
   static const routeName = 'register-vehicle-screen';
 
   @override
-  State<RegisterVehicleScreen> createState() => _RegisterVehicleScreen();
+  State<RegisterVehicleScreen> createState() => _RegisterVehicleScreenState();
 }
 
-class _RegisterVehicleScreen extends State<RegisterVehicleScreen> {
-  static const String _errorMessage = "Ingrese el valor correcto";
-  static const String _plate = "Placa";
-
-  final controller = TextEditingController();
+class _RegisterVehicleScreenState extends State<RegisterVehicleScreen> {
+  VehicleType selectedVehicleType = VehicleType.car;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(30),
-          child: Form(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SizedBox(height: 30),
-                textFieldPlate(),
-                const SizedBox(height: 15),
-                TextButton(
-                  onPressed: () {
-                    BlocProvider.of<RegisterVehicleBloc>(context).add(
-                      RegisterVehicle(
-                        Car(controller.text),
-                      ),
-                    );
-                  },
-                  child: const SizedBox(
-                    width: double.infinity,
-                    child: Center(
-                      child: Text("Aceptar"),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+      appBar: AppBar(
+        title: const Text("Registrar Vehículo"),
+      ),
+      body: MultiBlocListener(
+        listeners: [
+          BlocListener<RegisterCarBloc, RegisterCarState>(
+            listener: (context, state) {
+              if (state is RegisterCarSuccess) {
+                showToast("Carro registrado correctamente");
+                Navigator.pop(context);
+              }
+            },
           ),
+          BlocListener<RegisterMotorcycleBloc, RegisterMotorcycleState>(
+            listener: (context, state) {
+              if (state is RegisterMotorcycleSuccess) {
+                showToast("Moto registrada correctamente");
+                Navigator.pop(context);
+              }
+            },
+          ),
+        ],
+        child: _screen(),
+      ),
+    );
+  }
+
+  Widget _screen() {
+    return Center(
+      child: Container(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          children: [
+            const SizedBox(height: 20),
+            const Text('Seleccionar tipo de vehículo:'),
+            const SizedBox(height: 20),
+            _radioButton(),
+            const SizedBox(height: 20),
+            Expanded(
+              child: selectedVehicleType == VehicleType.car
+                  ? const RegisterCarForm()
+                  : const RegisterMotorcycleForm(),
+            ),
+          ],
         ),
       ),
     );
   }
 
-  Widget textFieldPlate() {
-    return SizedBox(
-      height: 50,
-      child: TextFormField(
-        controller: controller,
-        decoration: InputDecoration(
-          labelText: _plate,
-          border: textFieldBorderDecoration,
-          focusedBorder: textFieldBorderDecoration,
-          enabledBorder: textFieldBorderDecoration,
-          labelStyle:
-              const TextStyle(color: CupertinoColors.label, fontSize: 15),
+  Widget _radioButton() {
+    return Row(
+      children: [
+        Radio<VehicleType>(
+          value: VehicleType.car,
+          groupValue: selectedVehicleType,
+          onChanged: (value) {
+            setState(() {
+              selectedVehicleType = value ?? VehicleType.car;
+            });
+          },
         ),
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return _errorMessage;
-          }
-          return null;
-        },
-      ),
+        const Flexible(child: Text("Carro")),
+        Radio<VehicleType>(
+          value: VehicleType.motorcycle,
+          groupValue: selectedVehicleType,
+          onChanged: (value) {
+            setState(() {
+              selectedVehicleType = value ?? VehicleType.motorcycle;
+            });
+          },
+        ),
+        const Flexible(child: Text("Moto")),
+      ],
     );
   }
-
-  InputBorder textFieldBorderDecoration = OutlineInputBorder(
-    borderRadius: BorderRadius.circular(5),
-  );
 }

@@ -4,22 +4,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
-part 'register_vehicle_event.dart';
-part 'register_vehicle_state.dart';
+part 'register_car_event.dart';
+part 'register_car_state.dart';
 
 @injectable
-class RegisterVehicleBloc
-    extends Bloc<RegisterVehicleEvent, RegisterVehicleState> {
-  RegisterVehicleBloc({required TicketEntryCarService ticketEntryCarService})
+class RegisterCarBloc
+    extends Bloc<RegisterCarEvent, RegisterCarState> {
+  RegisterCarBloc({required TicketEntryCarService ticketEntryCarService})
       : _ticketEntryCarService = ticketEntryCarService,
         super(RegisterCarStarted()) {
-    on<RegisterVehicle>(_registerCar);
+    on<RegisterCar>(_registerCar);
   }
 
   final TicketEntryCarService _ticketEntryCarService;
 
   Future<void> _registerCar(
-      RegisterVehicle event, Emitter<RegisterVehicleState> emit) async {
+      RegisterCar event, Emitter<RegisterCarState> emit) async {
     emit(RegisterCarLoading());
     try {
       final ticket = TicketEntry(event.vehicle, DateTime.now());

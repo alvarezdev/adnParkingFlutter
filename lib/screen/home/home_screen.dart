@@ -19,11 +19,10 @@ class HomeScreen extends StatelessWidget {
             children: [
               TextButton(
                 onPressed: () {
-                  // Navigator.pushNamed(
-                  //   context,
-                  //   PayScreen.routeName,
-                  // );
-                  Navigator.pushNamed(context, RegisterVehicleScreen.routeName);
+                  Navigator.pushNamed(
+                    context,
+                    RegisterVehicleScreen.routeName,
+                  );
                 },
                 child: const SizedBox(
                   width: double.infinity,
