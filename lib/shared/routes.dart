@@ -1,5 +1,7 @@
 import 'package:adn_parking_flutter/dependencyInjection/dependency_injection.dart';
 import 'package:adn_parking_flutter/screen/home/home_screen.dart';
+import 'package:adn_parking_flutter/screen/pay/bloc/car_list/car_list_bloc.dart';
+import 'package:adn_parking_flutter/screen/pay/pay_ticket_screen.dart';
 import 'package:adn_parking_flutter/screen/register_vehicle/bloc/register_car/register_car_bloc.dart';
 import 'package:adn_parking_flutter/screen/register_vehicle/bloc/register_motorcycle/register_motorcycle_bloc.dart';
 import 'package:adn_parking_flutter/screen/register_vehicle/register_vehicle_screen.dart';
@@ -19,6 +21,10 @@ class AppRouter {
             ),
           ],
           child: const RegisterVehicleScreen(),
+        ),
+    PayTicketScreen.routeName: (context) => BlocProvider(
+          create: (_) => getIt<CarListBloc>()..add(CarList()),
+          child: const PayTicketScreen(),
         ),
   };
 }

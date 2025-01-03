@@ -32,7 +32,7 @@ class RegisterCarBloc
 
   @override
   Future<void> close() {
-    debugPrint('HomeBloc - close $_ticketEntryCarService');
+    debugPrint('RegisterCarBloc - close $_ticketEntryCarService');
     return super.close();
   }
 }

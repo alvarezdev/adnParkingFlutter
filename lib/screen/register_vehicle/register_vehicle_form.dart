@@ -1,3 +1,4 @@
+import 'package:adn_parking_flutter/shared/dimensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -55,7 +56,7 @@ abstract class StateRegisterVehicleForm<T extends RegisterVehicleForm> extends S
           focusedBorder: textFieldBorderDecoration,
           enabledBorder: textFieldBorderDecoration,
           labelStyle:
-              const TextStyle(color: CupertinoColors.label, fontSize: 15),
+              const TextStyle(color: CupertinoColors.label, fontSize: Dimensions.d15),
         ),
         validator: (value) {
           if (value == null || value.isEmpty) {
@@ -68,6 +69,6 @@ abstract class StateRegisterVehicleForm<T extends RegisterVehicleForm> extends S
   }
 
   InputBorder textFieldBorderDecoration = OutlineInputBorder(
-    borderRadius: BorderRadius.circular(5),
+    borderRadius: BorderRadius.circular(Dimensions.d5),
   );
 }

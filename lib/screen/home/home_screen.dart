@@ -1,3 +1,4 @@
+import 'package:adn_parking_flutter/screen/pay/pay_ticket_screen.dart';
 import 'package:adn_parking_flutter/screen/register_vehicle/register_vehicle_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -33,10 +34,10 @@ class HomeScreen extends StatelessWidget {
               ),
               TextButton(
                 onPressed: () {
-                  // Navigator.pushNamed(
-                  //   context,
-                  //   PayScreen.routeName,
-                  // );
+                  Navigator.pushNamed(
+                    context,
+                    PayTicketScreen.routeName,
+                  );
                 },
                 child: const SizedBox(
                   width: double.infinity,
