@@ -2,8 +2,8 @@ import 'package:adn_parking_flutter/screen/register_vehicle/bloc/register_car/re
 import 'package:adn_parking_flutter/screen/register_vehicle/bloc/register_motorcycle/register_motorcycle_bloc.dart';
 import 'package:adn_parking_flutter/screen/register_vehicle/register_car_form.dart';
 import 'package:adn_parking_flutter/screen/register_vehicle/register_motorcycle_form.dart';
-import 'package:adn_parking_flutter/shared/toast_widget.dart';
-import 'package:adn_parking_flutter/shared/vehicle_type.dart';
+import 'package:adn_parking_flutter/shared/toast/toast_widget.dart';
+import 'package:adn_parking_flutter/shared/enum/vehicle_type.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -32,6 +32,8 @@ class _RegisterVehicleScreenState extends State<RegisterVehicleScreen> {
               if (state is RegisterCarSuccess) {
                 showToast("Carro registrado correctamente");
                 Navigator.pop(context);
+              } else if (state is RegisterCarError) {
+                showToast(state.message);
               }
             },
           ),
@@ -40,6 +42,8 @@ class _RegisterVehicleScreenState extends State<RegisterVehicleScreen> {
               if (state is RegisterMotorcycleSuccess) {
                 showToast("Moto registrada correctamente");
                 Navigator.pop(context);
+              } else if (state is RegisterMotorcycleError) {
+                showToast(state.message);
               }
             },
           ),

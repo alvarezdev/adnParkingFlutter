@@ -1,16 +1,17 @@
+import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
 
 class VehicleItem extends StatelessWidget {
   const VehicleItem({
     super.key,
-    required this.plate,
+    required this.vehicle,
     required this.vehicleType,
     required this.onTap,
   });
 
-  final String plate;
+  final Vehicle vehicle;
   final String vehicleType;
-  final VoidCallback onTap;
+  final Function(Vehicle) onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -18,14 +19,16 @@ class VehicleItem extends StatelessWidget {
       children: [
         Expanded(
           flex: 3,
-          child: Text(plate),
+          child: Text(vehicle.plate),
         ),
         Expanded(
           child: Text(vehicleType),
         ),
         Expanded(
           child: TextButton(
-            onPressed: () {},
+            onPressed: () {
+              onTap(vehicle);
+            },
             child: const SizedBox(
               width: double.infinity,
               child: Center(

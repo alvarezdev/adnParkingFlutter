@@ -1,4 +1,4 @@
-part of 'car_list_bloc.dart';
+part of 'vehicle_list_bloc.dart';
 
 @immutable
 abstract class CarListState extends Equatable {
@@ -7,13 +7,13 @@ abstract class CarListState extends Equatable {
   List<Object> get props => [];
 }
 
-class CarListStarted extends CarListState {}
+class VehicleListStarted extends CarListState {}
 
-class CarListLoading extends CarListState {}
+class VehicleListLoading extends CarListState {}
 
-class CarListSuccess extends CarListState {
+class VehicleListSuccess extends CarListState {
 
-const CarListSuccess({required this.ticketEntryList});
+const VehicleListSuccess({required this.ticketEntryList});
 
   final List<TicketEntry> ticketEntryList;
 

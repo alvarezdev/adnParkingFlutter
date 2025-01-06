@@ -9,7 +9,7 @@ class TicketEntryCarDbRepositoryDev extends TicketEntryRepositoryDatabase{
   }
 
   @override
-  Future<void> delete(String id) {
+  Future<TicketEntry?> delete(String id) {
     throw UnimplementedError();
   }
 

@@ -42,17 +42,20 @@ class TicketEntryDbRepository extends TicketEntryRepositoryDatabase {
   }
 
   @override
-  Future<void> delete(String id) async {
+  Future<TicketEntry?> delete(String id) async {
     var ticketCar = await _ticketEntryCarDao.getTicketEntryById(id);
     var ticketMotorcycle =
         await _ticketEntryMotorcycleDao.getTicketEntryById(id);
-
+    TicketEntry? result;
     if (ticketCar != null) {
       _ticketEntryCarDao.deleteTicketEntry(ticketCar.id);
+      result = await getById(id);
     }
     if (ticketMotorcycle != null) {
       _ticketEntryMotorcycleDao.deleteTicketEntry(ticketMotorcycle.id);
+      result = await getById(id);
     }
+    return result;
   }
 
   @override

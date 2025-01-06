@@ -62,12 +62,11 @@ class MockTicketEntryRepository extends _i1.Mock
       ) as _i3.Future<List<_i4.TicketEntry>>);
 
   @override
-  _i3.Future<void> delete(String? id) => (super.noSuchMethod(
+  _i3.Future<bool> delete(String? id) => (super.noSuchMethod(
         Invocation.method(
           #delete,
           [id],
         ),
-        returnValue: _i3.Future<void>.value(),
-        returnValueForMissingStub: _i3.Future<void>.value(),
-      ) as _i3.Future<void>);
+        returnValue: _i3.Future<bool>.value(false),
+      ) as _i3.Future<bool>);
 }

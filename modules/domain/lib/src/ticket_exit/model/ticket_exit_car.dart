@@ -12,5 +12,4 @@ class TicketExitCar extends TicketExit {
   int calculateParkingValue() {
     return calculateValue();
   }
-
 }

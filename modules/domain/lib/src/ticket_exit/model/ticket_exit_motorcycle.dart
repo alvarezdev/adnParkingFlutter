@@ -1,4 +1,5 @@
 import 'package:domain/domain.dart';
+import 'package:domain/src/ticket_exit/model/ticket_exit.dart';
 
 class TicketExitMotorcycle extends TicketExit {
   TicketExitMotorcycle(this._ticketEntry, DateTime exitTime) : super(_ticketEntry, exitTime);

@@ -35,7 +35,7 @@ abstract class TicketEntryService {
     return _ticketRepository.getList();
   }
 
-  deleteTicket(String id){
+  Future<bool> deleteTicket(String id){
     return _ticketRepository.delete(id);
   }
 

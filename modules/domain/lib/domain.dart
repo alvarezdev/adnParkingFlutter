@@ -7,7 +7,8 @@ export 'src/vehicle/model/car.dart';
 export 'src/vehicle/model/motorcycle.dart';
 
 export 'src/ticket_entry/model/ticket_entry.dart';
-export 'src/ticket_exit/model/ticket_exit.dart';
+export 'src/ticket_exit/model/ticket_exit_motorcycle.dart';
+export 'src/ticket_exit/model/ticket_exit_car.dart';
 
 export 'src/ticket_entry/repository/ticket_repository.dart';
 

@@ -8,8 +8,10 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:adn_parking_flutter/screen/pay/bloc/car_list/car_list_bloc.dart'
-    as _i169;
+import 'package:adn_parking_flutter/screen/pay/bloc/delete_vehicle/delete_vehicle_bloc.dart'
+    as _i365;
+import 'package:adn_parking_flutter/screen/pay/bloc/vehicle_list/vehicle_list_bloc.dart'
+    as _i666;
 import 'package:adn_parking_flutter/screen/register_vehicle/bloc/register_car/register_car_bloc.dart'
     as _i956;
 import 'package:adn_parking_flutter/screen/register_vehicle/bloc/register_motorcycle/register_motorcycle_bloc.dart'
@@ -35,8 +37,16 @@ extension GetItInjectableX on _i174.GetIt {
         ticketEntryCarService: gh<_i494.TicketEntryMotorcycleService>()));
     gh.factory<_i956.RegisterCarBloc>(() => _i956.RegisterCarBloc(
         ticketEntryCarService: gh<_i494.TicketEntryCarService>()));
-    gh.factory<_i169.CarListBloc>(() => _i169.CarListBloc(
-        ticketEntryCarService: gh<_i494.TicketEntryCarService>()));
+    gh.factory<_i666.VehicleListBloc>(() => _i666.VehicleListBloc(
+          ticketEntryCarService: gh<_i494.TicketEntryCarService>(),
+          ticketEntryMotorcycleService:
+              gh<_i494.TicketEntryMotorcycleService>(),
+        ));
+    gh.factory<_i365.DeleteVehicleBloc>(() => _i365.DeleteVehicleBloc(
+          ticketEntryCarService: gh<_i494.TicketEntryCarService>(),
+          ticketEntryMotorcycleService:
+              gh<_i494.TicketEntryMotorcycleService>(),
+        ));
     await _i460.InfrastructurePackageModule().init(gh);
     await _i941.DomainPackageModule().init(gh);
     return this;

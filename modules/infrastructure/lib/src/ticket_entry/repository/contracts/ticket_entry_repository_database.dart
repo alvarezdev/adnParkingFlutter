@@ -7,5 +7,5 @@ abstract class TicketEntryRepositoryDatabase {
 
   Future<List<TicketEntry>> getList();
 
-  Future<void> delete(String id);
+  Future<TicketEntry?> delete(String id);
 }

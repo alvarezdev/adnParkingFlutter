@@ -16,8 +16,8 @@ class TicketEntryProxy implements TicketEntryRepository{
   }
 
   @override
-  delete(String id) async {
-    _ticketEntryDbRepository.delete(id);
+  Future<bool> delete(String id) async {
+    return (await _ticketEntryDbRepository.delete(id)) == null ? true : false ;
   }
 
   @override
