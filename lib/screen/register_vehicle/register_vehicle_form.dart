@@ -9,7 +9,8 @@ abstract class RegisterVehicleForm extends StatefulWidget {
   State<RegisterVehicleForm> createState();
 }
 
-abstract class StateRegisterVehicleForm<T extends RegisterVehicleForm> extends State<T> {
+abstract class StateRegisterVehicleForm<T extends RegisterVehicleForm>
+    extends State<T> {
   static const String _errorMessage = "Ingrese el valor correcto";
   static const String _plate = "Placa";
 
@@ -50,13 +51,23 @@ abstract class StateRegisterVehicleForm<T extends RegisterVehicleForm> extends S
       height: 50,
       child: TextFormField(
         controller: plateController,
+        onChanged: (value) {
+          if (value.isNotEmpty) {
+            plateController.value = TextEditingValue(
+              text: value.toUpperCase(),
+              selection: TextSelection.fromPosition(
+                TextPosition(offset: value.length),
+              ),
+            );
+          }
+        },
         decoration: InputDecoration(
           labelText: _plate,
           border: textFieldBorderDecoration,
           focusedBorder: textFieldBorderDecoration,
           enabledBorder: textFieldBorderDecoration,
-          labelStyle:
-              const TextStyle(color: CupertinoColors.label, fontSize: Dimensions.d15),
+          labelStyle: const TextStyle(
+              color: CupertinoColors.label, fontSize: Dimensions.d15),
         ),
         validator: (value) {
           if (value == null || value.isEmpty) {
