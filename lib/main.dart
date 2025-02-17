@@ -2,6 +2,7 @@ import 'package:adn_parking_flutter/dependencyInjection/dependency_injection.dar
 import 'package:adn_parking_flutter/screen/home/home_screen.dart';
 import 'package:adn_parking_flutter/shared/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() {
   configureInjection();
@@ -10,7 +11,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-  
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -20,6 +21,8 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: HomeScreen.routeName,
       routes: AppRouter.routes,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
     );
   }
 }

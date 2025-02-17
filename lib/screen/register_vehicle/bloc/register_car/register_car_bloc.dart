@@ -25,7 +25,10 @@ class RegisterCarBloc
       final ticket = TicketEntry(event.vehicle, DateTime.now());
       await _ticketEntryCarService.addTicketEntry(ticket);
       emit(RegisterCarSuccess());
-    } catch (e) {
+    } on BusinessException catch (e) {
+      emit(RegisterCarError(e.message));
+    }
+    catch (e) {
       emit(RegisterCarError(e.toString()));
     }
   }

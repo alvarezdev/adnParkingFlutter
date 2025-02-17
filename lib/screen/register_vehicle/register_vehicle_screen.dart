@@ -2,10 +2,12 @@ import 'package:adn_parking_flutter/screen/register_vehicle/bloc/register_car/re
 import 'package:adn_parking_flutter/screen/register_vehicle/bloc/register_motorcycle/register_motorcycle_bloc.dart';
 import 'package:adn_parking_flutter/screen/register_vehicle/register_car_form.dart';
 import 'package:adn_parking_flutter/screen/register_vehicle/register_motorcycle_form.dart';
+import 'package:adn_parking_flutter/shared/dimensions.dart';
 import 'package:adn_parking_flutter/shared/toast/toast_widget.dart';
 import 'package:adn_parking_flutter/shared/enum/vehicle_type.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RegisterVehicleScreen extends StatefulWidget {
   const RegisterVehicleScreen({super.key});
@@ -23,14 +25,14 @@ class _RegisterVehicleScreenState extends State<RegisterVehicleScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Registrar Vehículo"),
+        title: Text(AppLocalizations.of(context).register_vehicle),
       ),
       body: MultiBlocListener(
         listeners: [
           BlocListener<RegisterCarBloc, RegisterCarState>(
             listener: (context, state) {
               if (state is RegisterCarSuccess) {
-                showToast("Carro registrado correctamente");
+                showToast(AppLocalizations.of(context).correctly_registered_car);
                 Navigator.pop(context);
               } else if (state is RegisterCarError) {
                 showToast(state.message);
@@ -40,7 +42,7 @@ class _RegisterVehicleScreenState extends State<RegisterVehicleScreen> {
           BlocListener<RegisterMotorcycleBloc, RegisterMotorcycleState>(
             listener: (context, state) {
               if (state is RegisterMotorcycleSuccess) {
-                showToast("Moto registrada correctamente");
+                showToast(AppLocalizations.of(context).correctly_registered_motorcycle);
                 Navigator.pop(context);
               } else if (state is RegisterMotorcycleError) {
                 showToast(state.message);
@@ -48,22 +50,22 @@ class _RegisterVehicleScreenState extends State<RegisterVehicleScreen> {
             },
           ),
         ],
-        child: _screen(),
+        child: _container(),
       ),
     );
   }
 
-  Widget _screen() {
+  Widget _container() {
     return Center(
       child: Container(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(Dimensions.d20),
         child: Column(
           children: [
-            const SizedBox(height: 20),
-            const Text('Seleccionar tipo de vehículo:'),
-            const SizedBox(height: 20),
+            const SizedBox(height: Dimensions.d20),
+            Text(AppLocalizations.of(context).select_vehicle_type),
+            const SizedBox(height: Dimensions.d20),
             _radioButton(),
-            const SizedBox(height: 20),
+            const SizedBox(height: Dimensions.d20),
             Expanded(
               child: selectedVehicleType == VehicleType.car
                   ? const RegisterCarForm()
@@ -87,7 +89,7 @@ class _RegisterVehicleScreenState extends State<RegisterVehicleScreen> {
             });
           },
         ),
-        const Flexible(child: Text("Carro")),
+        Flexible(child: Text(AppLocalizations.of(context).car)),
         Radio<VehicleType>(
           value: VehicleType.motorcycle,
           groupValue: selectedVehicleType,
@@ -97,7 +99,7 @@ class _RegisterVehicleScreenState extends State<RegisterVehicleScreen> {
             });
           },
         ),
-        const Flexible(child: Text("Moto")),
+        Flexible(child: Text(AppLocalizations.of(context).motorcycle)),
       ],
     );
   }

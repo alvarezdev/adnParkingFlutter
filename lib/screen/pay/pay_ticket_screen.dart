@@ -7,6 +7,7 @@ import 'package:adn_parking_flutter/shared/toast/toast_widget.dart';
 import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PayTicketScreen extends StatefulWidget {
   const PayTicketScreen({super.key});
@@ -18,8 +19,8 @@ class PayTicketScreen extends StatefulWidget {
 }
 
 class _PayTicketScreen extends State<PayTicketScreen> {
-  static const String _errorMessage = "Ingrese el valor correcto";
-  static const String _plate = "Buscar placa";
+  static const String _initialLetterCar = "C";
+  static const String _initialLetterMotorcycle = "M";
 
   final TextEditingController plateController = TextEditingController();
   late List<TicketEntry> ticketEntryList = [];
@@ -31,7 +32,7 @@ class _PayTicketScreen extends State<PayTicketScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Lista de Carros"),
+        title: Text(AppLocalizations.of(context).car_list_title),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -53,14 +54,14 @@ class _PayTicketScreen extends State<PayTicketScreen> {
                     ticketEntryList = state.ticketEntryList;
                     ticketEntryListFiltered = state.ticketEntryList;
                     ticketEntryListMutable = state.ticketEntryList;
-                  } 
-                  return _screen();
+                  }
+                  return _container();
                 } else {
-                  return const Center(child: Text("No hay datos disponibles"));
+                  return Center(
+                      child: Text(AppLocalizations.of(context).car_list_title));
                 }
               },
             ),
-            // BlocListener para DeleteVehicleBloc
             BlocListener<DeleteVehicleBloc, DeleteVehicleState>(
               listener: (context, state) {
                 if (state is DeleteVehicleError) {
@@ -68,11 +69,12 @@ class _PayTicketScreen extends State<PayTicketScreen> {
                     SnackBar(content: Text(state.message)),
                   );
                 } else if (state is DeleteVehicleSuccess) {
-                  showToast("El vehículo ha cancelado su factura con éxito");
+                  showToast(
+                      AppLocalizations.of(context).invoice_paid_successfully);
                   BlocProvider.of<VehicleListBloc>(context).add(VehicleList());
                 }
               },
-              child: const SizedBox.shrink(), // Aquí solo necesitamos el listener
+              child: const SizedBox.shrink(),
             ),
           ],
         ),
@@ -80,7 +82,7 @@ class _PayTicketScreen extends State<PayTicketScreen> {
     );
   }
 
-  Widget _screen() {
+  Widget _container() {
     if (isFiltered) {
       ticketEntryListMutable = ticketEntryListFiltered;
     } else {
@@ -89,9 +91,9 @@ class _PayTicketScreen extends State<PayTicketScreen> {
     return Center(
       child: Column(
         children: [
-          const SizedBox(height: 15),
+          const SizedBox(height: Dimensions.d15),
           textFieldPlate(),
-          const SizedBox(height: 15),
+          const SizedBox(height: Dimensions.d15),
           ListView.builder(
             shrinkWrap: true,
             itemCount: ticketEntryListMutable.length,
@@ -103,38 +105,15 @@ class _PayTicketScreen extends State<PayTicketScreen> {
                 ),
                 child: VehicleItem(
                   vehicle: ticketEntry.vehicle,
-                  vehicleType:
-                      ticketEntryListMutable[index].vehicle is Car ? "C" : "M",
-                  onTap: (Vehicle vehicle) {
-                    final value = calculateTicketValue(ticketEntry);
-                    AlertDialogWidget.show(
-                      context: context,
-                      title: "Pagar",
-                      description: "Valor a pagar: $value",
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: const Text("Cancelar"),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            BlocProvider.of<DeleteVehicleBloc>(context)
-                                .add(DeleteVehicle(vehicle));
-                            setState(() {});
-                            Navigator.of(context).pop();
-                          },
-                          child: const Text("Aceptar"),
-                        ),
-                      ],
-                    );
-                  },
+                  vehicleType: ticketEntryListMutable[index].vehicle is Car
+                      ? _initialLetterCar
+                      : _initialLetterMotorcycle,
+                  onTap: showEndPaymentAlertDialog(ticketEntry),
                 ),
               );
             },
           ),
-          const SizedBox(height: 15),
+          const SizedBox(height: Dimensions.d15),
         ],
       ),
     );
@@ -148,33 +127,34 @@ class _PayTicketScreen extends State<PayTicketScreen> {
       child: TextFormField(
         controller: plateController,
         decoration: InputDecoration(
-          labelText: _plate,
+          labelText: AppLocalizations.of(context).search_plate,
           border: textFieldBorderDecoration,
           focusedBorder: textFieldBorderDecoration,
           enabledBorder: textFieldBorderDecoration,
           labelStyle:
               const TextStyle(color: Colors.black, fontSize: Dimensions.d15),
-          hintText: _plate,
+          hintText: AppLocalizations.of(context).search_plate,
           prefixIcon: const Icon(Icons.search),
           suffixIcon: IconButton(
             icon: const Icon(Icons.clear),
             onPressed: () {
               plateController.clear();
               isFiltered = false;
-              setState(() {
-              });
+              setState(() {});
             },
           ),
         ),
         onChanged: (value) {
           isFiltered = true;
           setState(() {
-              ticketEntryListFiltered = ticketEntryList.where((element) => element.vehicle.plate.contains(value)).toList();
+            ticketEntryListFiltered = ticketEntryList
+                .where((element) => element.vehicle.plate.contains(value))
+                .toList();
           });
         },
         validator: (value) {
           if (value == null || value.isEmpty) {
-            return _errorMessage;
+            return AppLocalizations.of(context).error_message_text_field;
           }
           return null;
         },
@@ -198,23 +178,22 @@ class _PayTicketScreen extends State<PayTicketScreen> {
   Function(Vehicle) showEndPaymentAlertDialog(TicketEntry ticketEntry) {
     return (Vehicle vehicle) {
       final value = calculateTicketValue(ticketEntry);
-      final bloc = BlocProvider.of<DeleteVehicleBloc>(context)
-          .add(DeleteVehicle(vehicle));
       AlertDialogWidget.show(
         context: context,
-        title: "Pagar",
-        description: "Valor a pagar: $value",
+        title: AppLocalizations.of(context).pay_button,
+        description:
+            AppLocalizations.of(context).amount_to_pay + value.toString(),
         actions: [
           TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: const Text("Cancelar"),
-          ),
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text(AppLocalizations.of(context).cancel_button)),
           TextButton(
             onPressed: () {
-              bloc;
+              BlocProvider.of<DeleteVehicleBloc>(context)
+                  .add(DeleteVehicle(vehicle));
               Navigator.of(context).pop();
             },
-            child: const Text("Aceptar"),
+            child: Text(AppLocalizations.of(context).accept_button),
           ),
         ],
       );

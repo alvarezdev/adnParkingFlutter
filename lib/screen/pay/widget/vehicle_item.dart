@@ -1,5 +1,6 @@
 import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class VehicleItem extends StatelessWidget {
   const VehicleItem({
@@ -29,10 +30,10 @@ class VehicleItem extends StatelessWidget {
             onPressed: () {
               onTap(vehicle);
             },
-            child: const SizedBox(
+            child: SizedBox(
               width: double.infinity,
               child: Center(
-                child: Text("Pagar"),
+                child: Text(AppLocalizations.of(context).pay_button),
               ),
             ),
           ),

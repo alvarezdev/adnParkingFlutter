@@ -1,6 +1,7 @@
 import 'package:adn_parking_flutter/shared/dimensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 abstract class RegisterVehicleForm extends StatefulWidget {
   const RegisterVehicleForm({super.key});
@@ -11,12 +12,9 @@ abstract class RegisterVehicleForm extends StatefulWidget {
 
 abstract class StateRegisterVehicleForm<T extends RegisterVehicleForm>
     extends State<T> {
-  static const String _errorMessage = "Ingrese el valor correcto";
-  static const String _plate = "Placa";
 
   final TextEditingController plateController = TextEditingController();
 
-  // Método abstracto para agregar campos específicos a los formularios hijos
   Widget buildAdditionalFields();
 
   onSubmit(BuildContext context);
@@ -27,17 +25,17 @@ abstract class StateRegisterVehicleForm<T extends RegisterVehicleForm>
       child: Column(
         children: [
           textFieldPlate(),
-          const SizedBox(height: 10),
+          const SizedBox(height: Dimensions.d10),
           buildAdditionalFields(),
-          const SizedBox(height: 15),
+          const SizedBox(height: Dimensions.d15),
           TextButton(
             onPressed: () {
               onSubmit(context);
             },
-            child: const SizedBox(
+            child: SizedBox(
               width: double.infinity,
               child: Center(
-                child: Text("Aceptar"),
+                child: Text(AppLocalizations.of(context).accept_button),
               ),
             ),
           ),
@@ -48,7 +46,7 @@ abstract class StateRegisterVehicleForm<T extends RegisterVehicleForm>
 
   Widget textFieldPlate() {
     return SizedBox(
-      height: 50,
+      height: Dimensions.d50,
       child: TextFormField(
         controller: plateController,
         onChanged: (value) {
@@ -62,7 +60,7 @@ abstract class StateRegisterVehicleForm<T extends RegisterVehicleForm>
           }
         },
         decoration: InputDecoration(
-          labelText: _plate,
+          labelText: AppLocalizations.of(context).search_plate,
           border: textFieldBorderDecoration,
           focusedBorder: textFieldBorderDecoration,
           enabledBorder: textFieldBorderDecoration,
@@ -71,7 +69,7 @@ abstract class StateRegisterVehicleForm<T extends RegisterVehicleForm>
         ),
         validator: (value) {
           if (value == null || value.isEmpty) {
-            return _errorMessage;
+            return AppLocalizations.of(context).error_message_text_field;
           }
           return null;
         },

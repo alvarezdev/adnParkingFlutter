@@ -1,5 +1,6 @@
 import 'package:adn_parking_flutter/screen/register_vehicle/bloc/register_car/register_car_bloc.dart';
 import 'package:adn_parking_flutter/screen/register_vehicle/register_vehicle_form.dart';
+import 'package:adn_parking_flutter/shared/toast/toast_widget.dart';
 import 'package:domain/domain.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,10 +20,16 @@ class _RegisterCarForm extends StateRegisterVehicleForm<RegisterCarForm> {
 
   @override
   onSubmit(BuildContext context) {
-    BlocProvider.of<RegisterCarBloc>(context).add(
-      RegisterCar(
-        Car(plateController.text),
-      ),
-    );
+    try {
+      BlocProvider.of<RegisterCarBloc>(context).add(
+        RegisterCar(
+          Car(plateController.text),
+        ),
+      );
+    } on BusinessException catch (e) {
+      showToast(e.message);
+    } catch (e) {
+      showToast(e.toString());
+    }
   }
 }
