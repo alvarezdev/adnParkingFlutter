@@ -1,13 +1,4 @@
-import 'package:adn_parking_flutter/screen/register_vehicle/bloc/register_car/register_car_bloc.dart';
-import 'package:adn_parking_flutter/screen/register_vehicle/bloc/register_motorcycle/register_motorcycle_bloc.dart';
-import 'package:adn_parking_flutter/screen/register_vehicle/register_car_form.dart';
-import 'package:adn_parking_flutter/screen/register_vehicle/register_motorcycle_form.dart';
-import 'package:adn_parking_flutter/shared/dimensions.dart';
-import 'package:adn_parking_flutter/shared/toast/toast_widget.dart';
-import 'package:adn_parking_flutter/shared/enum/vehicle_type.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:adn_parking_flutter/screen/screen.dart';
 
 class RegisterVehicleScreen extends StatefulWidget {
   const RegisterVehicleScreen({super.key});
@@ -32,7 +23,8 @@ class _RegisterVehicleScreenState extends State<RegisterVehicleScreen> {
           BlocListener<RegisterCarBloc, RegisterCarState>(
             listener: (context, state) {
               if (state is RegisterCarSuccess) {
-                showToast(AppLocalizations.of(context).correctly_registered_car);
+                showToast(
+                    AppLocalizations.of(context).correctly_registered_car);
                 Navigator.pop(context);
               } else if (state is RegisterCarError) {
                 showToast(state.message);
@@ -42,7 +34,8 @@ class _RegisterVehicleScreenState extends State<RegisterVehicleScreen> {
           BlocListener<RegisterMotorcycleBloc, RegisterMotorcycleState>(
             listener: (context, state) {
               if (state is RegisterMotorcycleSuccess) {
-                showToast(AppLocalizations.of(context).correctly_registered_motorcycle);
+                showToast(AppLocalizations.of(context)
+                    .correctly_registered_motorcycle);
                 Navigator.pop(context);
               } else if (state is RegisterMotorcycleError) {
                 showToast(state.message);

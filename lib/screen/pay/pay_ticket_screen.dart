@@ -1,14 +1,4 @@
-import 'package:adn_parking_flutter/screen/pay/bloc/delete_vehicle/delete_vehicle_bloc.dart';
-import 'package:adn_parking_flutter/screen/pay/bloc/vehicle_list/vehicle_list_bloc.dart';
-import 'package:adn_parking_flutter/screen/pay/widget/vehicle_item.dart';
-import 'package:adn_parking_flutter/shared/alert_dialog/alert_dialog_widget.dart';
-import 'package:adn_parking_flutter/shared/dimensions.dart';
-import 'package:adn_parking_flutter/shared/toast/toast_widget.dart';
-import 'package:domain/domain.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
+import 'package:adn_parking_flutter/screen/screen.dart';
 class PayTicketScreen extends StatefulWidget {
   const PayTicketScreen({super.key});
 

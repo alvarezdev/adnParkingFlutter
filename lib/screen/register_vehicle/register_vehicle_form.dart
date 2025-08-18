@@ -1,7 +1,4 @@
-import 'package:adn_parking_flutter/shared/dimensions.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:adn_parking_flutter/screen/screen.dart';
 
 abstract class RegisterVehicleForm extends StatefulWidget {
   const RegisterVehicleForm({super.key});
@@ -12,7 +9,6 @@ abstract class RegisterVehicleForm extends StatefulWidget {
 
 abstract class StateRegisterVehicleForm<T extends RegisterVehicleForm>
     extends State<T> {
-
   final TextEditingController plateController = TextEditingController();
 
   Widget buildAdditionalFields();
@@ -65,7 +61,7 @@ abstract class StateRegisterVehicleForm<T extends RegisterVehicleForm>
           focusedBorder: textFieldBorderDecoration,
           enabledBorder: textFieldBorderDecoration,
           labelStyle: const TextStyle(
-              color: CupertinoColors.label, fontSize: Dimensions.d15),
+              color: Colors.black, fontSize: Dimensions.d15),
         ),
         validator: (value) {
           if (value == null || value.isEmpty) {

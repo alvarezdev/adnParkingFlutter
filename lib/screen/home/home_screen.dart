@@ -1,8 +1,4 @@
-import 'package:adn_parking_flutter/screen/pay/pay_ticket_screen.dart';
-import 'package:adn_parking_flutter/screen/register_vehicle/register_vehicle_screen.dart';
-import 'package:adn_parking_flutter/shared/dimensions.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:adn_parking_flutter/screen/screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});

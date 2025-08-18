@@ -1,6 +1,4 @@
-import 'package:domain/domain.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:adn_parking_flutter/screen/screen.dart';
 
 class VehicleItem extends StatelessWidget {
   const VehicleItem({

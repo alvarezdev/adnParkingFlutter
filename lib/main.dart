@@ -1,8 +1,8 @@
 import 'package:adn_parking_flutter/dependencyInjection/dependency_injection.dart';
+import 'package:adn_parking_flutter/l10n/generated/app_localizations.dart';
 import 'package:adn_parking_flutter/screen/home/home_screen.dart';
 import 'package:adn_parking_flutter/shared/routes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() {
   configureInjection();

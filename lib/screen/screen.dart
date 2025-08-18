@@ -1,0 +1,20 @@
+library;
+
+export 'package:adn_parking_flutter/l10n/generated/app_localizations.dart';
+export 'package:adn_parking_flutter/screen/pay/bloc/delete_vehicle/delete_vehicle_bloc.dart';
+export 'package:adn_parking_flutter/screen/pay/bloc/vehicle_list/vehicle_list_bloc.dart';
+export 'package:adn_parking_flutter/screen/pay/pay_ticket_screen.dart';
+export 'package:adn_parking_flutter/screen/pay/widget/vehicle_item.dart';
+export 'package:adn_parking_flutter/screen/register_vehicle/bloc/register_car/register_car_bloc.dart';
+export 'package:adn_parking_flutter/screen/register_vehicle/bloc/register_motorcycle/register_motorcycle_bloc.dart';
+export 'package:adn_parking_flutter/screen/register_vehicle/register_car_form.dart';
+export 'package:adn_parking_flutter/screen/register_vehicle/register_motorcycle_form.dart';
+export 'package:adn_parking_flutter/screen/register_vehicle/register_vehicle_screen.dart';
+export 'package:adn_parking_flutter/shared/alert_dialog/alert_dialog_widget.dart';
+export 'package:adn_parking_flutter/shared/dimensions.dart';
+export 'package:adn_parking_flutter/shared/enum/vehicle_type.dart';
+export 'package:adn_parking_flutter/shared/toast/toast_widget.dart';
+export 'package:domain/domain.dart';
+export 'package:flutter/material.dart';
+export 'package:flutter_bloc/flutter_bloc.dart';
+export 'package:flutter_localizations/flutter_localizations.dart';

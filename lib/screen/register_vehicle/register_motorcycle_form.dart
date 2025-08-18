@@ -1,3 +1,4 @@
+import 'package:adn_parking_flutter/l10n/generated/app_localizations.dart';
 import 'package:adn_parking_flutter/screen/register_vehicle/bloc/register_motorcycle/register_motorcycle_bloc.dart';
 import 'package:adn_parking_flutter/screen/register_vehicle/register_vehicle_form.dart';
 import 'package:adn_parking_flutter/shared/dimensions.dart';
@@ -6,7 +7,6 @@ import 'package:domain/domain.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RegisterMotorcycleForm extends RegisterVehicleForm {
   const RegisterMotorcycleForm({super.key});
