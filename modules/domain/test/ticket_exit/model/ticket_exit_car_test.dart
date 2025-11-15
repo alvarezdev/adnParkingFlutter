@@ -1,5 +1,4 @@
 import 'package:domain/domain.dart';
-import 'package:domain/src/ticket_exit/model/ticket_exit_car.dart';
 import 'package:test/test.dart';
 
 void main() {

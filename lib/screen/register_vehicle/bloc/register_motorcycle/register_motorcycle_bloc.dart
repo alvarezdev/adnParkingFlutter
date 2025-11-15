@@ -13,12 +13,12 @@ class RegisterMotorcycleBloc
   RegisterMotorcycleBloc({required TicketEntryMotorcycleService ticketEntryCarService})
       : _ticketEntryCarService = ticketEntryCarService,
         super(RegisterMotorcycleStarted()) {
-    on<RegisterMotorcycle>(_registerCar);
+    on<RegisterMotorcycle>(_registerMotorcycle);
   }
 
   final TicketEntryMotorcycleService _ticketEntryCarService;
 
-  Future<void> _registerCar(
+  Future<void> _registerMotorcycle(
       RegisterMotorcycle event, Emitter<RegisterMotorcycleState> emit) async {
     emit(RegisterMotorcycleLoading());
     try {
